@@ -68,6 +68,26 @@ A remote host object has following properties:
 Use `role(name)` to associate the host with roles. A remote host can be associated with multiple roles.
 
 
+### Access through gateway servers
+
+A remote host can be accessed through one or more gateway servers.
+
+```groovy
+remotes {
+  web01 {
+    host = '192.168.1.101'
+    user = 'jenkins'
+  }
+  gw01 {
+    host = '10.2.3.4'
+    user = 'gwuser'
+  }
+}
+
+remotes.web01.gateway = remotes.gw01
+```
+
+
 Define a SSH task
 -----------------
 
