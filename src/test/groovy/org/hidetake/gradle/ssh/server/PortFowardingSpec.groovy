@@ -41,20 +41,20 @@ class PortFowardingSpec extends Specification {
                 knownHosts = allowAnyHosts
             }
             remotes {
-                target {
-                    host = targetServer.host
-                    port = targetServer.port
-                    user = 'targetUser'
-                    password = 'targetPassword'
-                }
-                gateway {
+                gw {
                     host = gatewayServer.host
                     port = gatewayServer.port
                     user = 'gatewayUser'
                     password = 'gatewayPassword'
                 }
+                target {
+                    host = targetServer.host
+                    port = targetServer.port
+                    user = 'targetUser'
+                    password = 'targetPassword'
+		    gateway = remotes.gw
+                }
             }
-            remotes.target.gateway = remotes.gateway
         }
     }
 
@@ -71,7 +71,7 @@ class PortFowardingSpec extends Specification {
 
         project.with {
             task(type: SshTask, 'localPortForwardingTask') {
-                session(remotes.gateway) {
+                session(remotes.gw) {
                     int localPort = forwardLocalPortTo(remotes.target.host, remotes.target.port)
 
                     remotes.create('targetViaGateway') {

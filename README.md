@@ -74,17 +74,16 @@ A remote host can be accessed through one or more gateway servers.
 
 ```groovy
 remotes {
-  web01 {
-    host = '192.168.1.101'
-    user = 'jenkins'
-  }
   gw01 {
     host = '10.2.3.4'
     user = 'gwuser'
   }
+  web01 {
+    host = '192.168.1.101'
+    user = 'jenkins'
+    gateway = remotes.gw01
+  }
 }
-
-remotes.web01.gateway = remotes.gw01
 ```
 
 
